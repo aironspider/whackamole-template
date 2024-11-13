@@ -8,11 +8,13 @@ def mole_touched(event_loc,mole_loc):
     event_loc[1] = event_loc[1]//32
     mol_loc[0] = mol_loc[0]//32
     mol_loc[1] = mol_loc[1]//32
-    if int(mol_loc[0]) == int(event_loc[0]) and int(mole_loc[1]) == int(event_loc[1]):
+    #if int(mol_loc[0]) == int(event_loc[0]) and int(mole_loc[1]) == int(event_loc[1]):
+    if int(mol_loc[0]) == int(event_loc[0]) and int(mol_loc[1]) == int(event_loc[1]):
         return True
     else:
         print(f"mol: {mol_loc} != {event_loc}")
-        print(mole_loc[1] == event_loc[1])
+        print(mol_loc[0] == event_loc[0])
+        print(mol_loc[1] == event_loc[1])
         print(mol_loc[1], " ", event_loc[1])
 
         return False
@@ -32,7 +34,7 @@ def main():
 
 
         while running:
-            screen.blit(mole_image, mole_image.get_rect(topleft=(mol_pos)))
+            screen.fill("light green")
             for y in range(0, 16):
                 pygame.draw.line(screen, "blue", (0, y * 32), (640, y*32))
             for x in range(0,20):
@@ -47,12 +49,13 @@ def main():
                     print(mol_pos[0]//32,mol_pos[1]//32)
                     print(event.pos)
                     print(f"square{event.pos[0]//32},{event.pos[1]//32}")
-                    if event.pos[0]//32 == mol_pos[0]//2 and event.pos[1]//32 == mol_pos[1]//2:
+                    if event.pos[0]//32 == mol_pos[0]//32 and event.pos[1]//32 == mol_pos[1]//32:
                         print("Hey")
                     if mole_touched(event.pos,mol_pos):
                         #mol_pos = (random.randrange(0, 512)//32, random.randrange(0, 640)//32)
-                        mol_pos = (random.randrange(0, 16) * 32, random.randrange(0, 20) * 32)
+                        mol_pos = (random.randrange(0, 20) * 32, random.randrange(0, 16) * 32)
                         #pass
+
             screen.blit(mole_image, mole_image.get_rect(topleft=(mol_pos)))
             pygame.display.flip()
             clock.tick(60)
